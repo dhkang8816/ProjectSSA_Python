@@ -1,0 +1,92 @@
+{% extends "main/base.html" %}
+
+{% block header_title %}🐾유기동물 보호센터🏡{% endblock %}
+
+{% block content %} 
+
+{% if current_user.is_authenticated %}
+    <!-- 1. 로그인 완료 시: 기존 메뉴 -->
+    <div style="display: flex !important; 
+                flex-direction: row !important; 
+                justify-content: center !important; 
+                align-items: center !important; 
+                gap: 40px !important; 
+                height: calc(100vh - 160px) !important; 
+                width: 100% !important; 
+                max-width: 100% !important;
+                box-sizing: border-box !important;">
+                
+        <a href="{{ url_for('main.userctrl') }}" class="menu-card">
+            <div class="card-title">직원 정보 관리</div>
+        </a>
+
+        <a href="{{ url_for('main.control') }}" class="menu-card">
+            <div class="card-title">관제</div>
+        </a>
+    </div>
+
+{% else %}
+    <!-- 2. 로그아웃 상태 시: 화면 정중앙 버튼 -->
+    <style>
+        .auth-card-container {
+            display: flex !important;
+            flex-direction: column !important;
+            justify-content: center !important;
+            align-items: center !important;
+            gap: 24px !important;
+            height: calc(80vh - 100px) !important;
+            width: 100% !important;
+        }
+
+        .auth-menu-card {
+            width: 320px !important;
+            height: 125px !important;
+            background: #333 !important; 
+            border-radius: 20px !important;
+            border: 1px solid rgba(255, 255, 255, 0.2) !important;
+            text-decoration: none !important;
+            
+            display: inline-flex !important;
+            justify-content: center !important;
+            align-items: center !important;
+            
+            backdrop-filter: blur(8px) !important; 
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25) !important;
+            transition: all 0.3s ease !important;
+        }
+
+        .auth-menu-card:hover {
+            transform: translateY(-5px) !important;
+            background: rgba(74, 53, 37, 0.9) !important; 
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4) !important;
+            border-color: rgba(255, 255, 255, 0.4) !important;
+        }
+
+        .auth-card-title {
+            color: #ffffff !important;
+            font-size: 22px !important;
+            font-weight: bold !important;
+            letter-spacing: 1px;
+        }
+        
+        .auth-card-title i {
+            margin-right: 10px;
+        }
+    </style>
+
+    <div class="auth-card-container">
+        <a href="{{ url_for('auth.login') }}" class="auth-menu-card">
+            <div class="auth-card-title">
+                <i class="fa-solid fa-right-to-bracket"></i>로그인 시작하기
+            </div>
+        </a>
+
+        <a href="{{ url_for('auth.signup') }}" class="auth-menu-card">
+            <div class="auth-card-title">
+                <i class="fa-solid fa-user-plus"></i>신규 유저 등록
+            </div>
+        </a>
+    </div>
+{% endif %}
+
+{% endblock %}
